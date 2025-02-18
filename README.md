@@ -1,9 +1,9 @@
-#**🦈 Shark Tank India - Exploratory Data Analysis (EDA)**
+**🦈 Shark Tank India - Exploratory Data Analysis (EDA)**
 
-##**📌 Overview**
+**📌 Overview**
 This project analyzes Shark Tank India, a reality show where entrepreneurs pitch their businesses to a panel of investors ("sharks") in hopes of securing funding. The dataset includes 320 startup pitches across two seasons, covering details like investment trends, deal sizes, and shark behavior.
 
-##**📂 Dataset Details**
+**📂 Dataset Details**
 
 The dataset consists of 64 columns, including:
 
@@ -16,11 +16,11 @@ Investor Insights: Which sharks invested and their respective contributions.
 Presenter Demographics: Number of presenters, gender, and city/state of origin.
 
 
-#**🔍 Key Insights :**
+**🔍 Key Insights :**
 
 
 
-##**🚀 General Insights**
+**🚀 General Insights**
 
 Total Startups Pitched: 320
 
@@ -33,7 +33,7 @@ Average Investment Per Startup: ₹ 62.53 lakhs.
 Most Common Investment Range: ₹ 40.00 - 80.00 lakhs.
 
 
-#**💰 Investment & Deal Trends :**
+**💰 Investment & Deal Trends :**
 
 Highest Deal Amount: ₹ 200.00 lakhs (Startups: UnStop, MeduLance, Pharmallama).
 
@@ -50,7 +50,7 @@ More or Less :
 64.20% secured exactly what they asked for.
 
  
-##**🏆 Most Active & Selective Sharks :**
+**🏆 Most Active & Selective Sharks :**
 
 Top Investor: Aman Gupta invested the highest amount.
 
@@ -59,14 +59,14 @@ Least Active: Ghazal Alagh made the least investments.
 Most Equity Acquired: Peyush Bansal & Namita Thapar received the highest equity.
 
 
-#**🏢 Industry Trends :**
+**🏢 Industry Trends :**
 
 Most Pitched Industry: Food & Beverages, Tech, Healthcare.
 
 Least Pitched Industry: Hardware & Entertainment.
 
 
-##**🌍 Geographic Insights :**
+**🌍 Geographic Insights :**
 
 Top 3 Participating States:
 
@@ -79,7 +79,7 @@ Karnataka
 (Metro vs. Non-Metro: Startups from metro cities received significantly more investments than those from tier-2 and tier-3 cities.)
 
 
-##**👥 Demographic Trends :**
+**👥 Demographic Trends :**
 
 Team Size: Most pitches were presented by 2-person teams.
 
@@ -93,7 +93,7 @@ Couple Entrepreneurs: Several pitches were presented by couples.
 Most Common Age Group: 30-50 years (middle-aged entrepreneurs) were the most active.
 
 
-##**🎯 Shark Investment Behavior :**
+**🎯 Shark Investment Behavior :**
 
 Most Expensive Episode: Season 2, Episode 20 had the highest total investment.
 
