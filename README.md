@@ -98,13 +98,13 @@ Most Expensive Episode: Season 2, Episode 20 had the highest total investment.
 
 Most Liked Ideas: Startups that received offers from all 5 sharks included:
 
--Skippi Ice Pops
--Find Your Kicks India
--INACAN
--Sunfox Technologies
--Snitch
--Mahantam
--Pharmallama
--Sahayatha
+(Skippi Ice Pops
+,Find Your Kicks India
+,INACAN
+,Sunfox Technologies
+,Snitch
+,Mahantam
+,Pharmallama
+,Sahayatha)
 
 Patent Ownership: Only 7 startups had patented ideas.
