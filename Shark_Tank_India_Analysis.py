@@ -8,24 +8,14 @@ pd.set_option('display.max_rows',None)
 pd.set_option('display.max_columns',None)
 
 
-
-
-
 df=pd.read_csv("D:\python_datascience\data sets\Shark Tank India.csv")
-
-
-
 
 
 df.shape
 
-
-# ## Observations
-# 
+### Observations
 # * There are total **64 Attributes/columns** available in the dataset.
 # * There are total **320 Records/Rows** available in the dataset.
-
-
 
 
 df.sample(2)  ## fetching 5 sample records/rows
@@ -104,34 +94,23 @@ df.sample(2)  ## fetching 5 sample records/rows
 # - Guest Name - Name of Guest
 
 
-
-
 df1=df.dtypes.to_frame()
-
-
-
 
 
 df1.rename(columns={0:"datatypes"},inplace=True)
 df1.T
 
 
-# ## Observation
-# 
+# ## Observation 
 # *  The colunms dtypes are of mix types , we have float , object, int .
 # *  Column name **started in**  indicates startup year that should not be in float . so we have to convert it into int
 #    Columns name **Has patents**,**Male Presenters**,**Female Presenters**,**Transgender Presenters**,**Couple Presenters**   should not be in float . so we have to convert them into int
-# 
-# 
-
-
 
 
 df.info()
 
 
 # ## Observation
-# 
 # *  Some columns have missing values
 # *  columns of float types: 47
 # *  columns of int types : 5
@@ -141,24 +120,17 @@ df.info()
 # ## Checking missing values of each columns
 
 
-
-
 df.isnull().sum().to_frame().rename(columns={0:"missing values count"}).T
 
 
-# ## Checking missing values % of each column
-
-
-
+### Checking missing values % of each column
 
 for i in df.columns:
     if df[i].isnull().sum()>0:
         print(i,"---------------",df[i].isnull().sum()*100/df.shape[0],"%")
 
 
-# ### Checking the missing values of those columns which are of object type
-
-
+#### Checking the missing values of those columns which are of object type
 
 
 for i in df.columns:
@@ -166,17 +138,13 @@ for i in df.columns:
         print(i,"---------------",df[i].isnull().sum()*100/df.shape[0],"%")
 
 
-# ## since company website is not relevant with respect to analysis so we drop it
-
-
+### since company website is not relevant with respect to analysis so we drop it
 
 
 df.drop(columns=["Company Website"],inplace=True)   ## feature engineering
 
 
-# ## Imputing the missing values in Deal has conditions columns
-
-
+### Imputing the missing values in Deal has conditions columns
 
 
 df["Deal has conditions"].unique()
@@ -185,12 +153,7 @@ df["Deal has conditions"].unique()
 # here nan indicates no conditions so fill nan in Deal has conditions
 
 
-
-
 df["Deal has conditions"]=df["Deal has conditions"].fillna("no")
-
-
-
 
 
 ## verifying the result
@@ -200,12 +163,7 @@ df["Deal has conditions"].unique()
 # ## Imputing the missing values in Guest Name  column
 
 
-
-
 df["Guest Name"]=df["Guest Name"].fillna("not present")
-
-
-
 
 
 df["Guest Name"].isnull().sum()
@@ -214,14 +172,12 @@ df["Guest Name"].isnull().sum()
 # ## missing values % of columns which are of numeric type
 
 
-
-
 for i in df.columns:
     if df[i].isnull().sum()>0 and (df[i].dtype=="int32" or df[i].dtype=="float64"):
         print(i,"---------------",df[i].isnull().sum()*100/df.shape[0],"%")
 
 
-# ## though some columns has missing values % greater than 70% but we wont drop them as they are important columns so fill the misiing values of numeric columns as per domain knowledge
+### though some columns has missing values % greater than 70% but we wont drop them as they are important columns so fill the misiing values of numeric columns as per domain knowledge
 
 # Taking  **male presenters,Female Presenters,Transgender Presenters, Couple Presenters** columns
 
@@ -241,15 +197,10 @@ for i in presenters:
     df[i].fillna(0,inplace=True)
 
 
-# ## verifying the results whether the missing values in above mentioned columns has been filled  or not
-
-
+### verifying the results whether the missing values in above mentioned columns has been filled  or not
 
 
 df[presenters].isnull().sum().sum()
-
-
-
 
 
 df[presenters].dtypes
@@ -258,12 +209,7 @@ df[presenters].dtypes
 # ## since the datatypes of above is float they should be in int as presenters count would be discrete so convert them in int
 
 
-
-
 df[presenters]=df[presenters].astype(int)   ## do necessary column conversion
-
-
-
 
 
 df[presenters].dtypes
@@ -272,12 +218,7 @@ df[presenters].dtypes
 # Taking **Started in** column
 
 
-
-
 df["Started in"].unique()
-
-
-
 
 
 df["Started in"].isnull().sum()
@@ -286,19 +227,11 @@ df["Started in"].isnull().sum()
 # fill nan in started in columns with 0 as nan indicates brands did nt mention their start up year  or some pitchers were about to start
 
 
-
-
 df["Started in"]=df["Started in"].fillna(0)
 df["Started in"].unique()
 
 
-
-
-
 df["Started in"]=df["Started in"].astype(int)   ## convert started in column in int as years should be discrete type so change it  in int
-
-
-
 
 
 df["Started in"].dtypes
@@ -306,9 +239,7 @@ df["Started in"].dtypes
 
 # Taking **Yearly Revenue ,Monthly Sales , Gross Margin ,Net Margin** columns
 
-# ## checking the correlation to see relation between them
-
-
+### checking the correlation to see relation between them
 
 
 df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]].corr()
@@ -317,14 +248,10 @@ df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]].corr()
 # from this we can see there a moderate positive correlation between monthly sales and yearly  sales and with rest columns theere is no relation
 
 
-
-
 df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]]
 
 
 # from this above output nan indicates not available info but these columns are in float so we fill them with 0
-
-
 
 
 df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]]=df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]].fillna(0)
@@ -333,12 +260,7 @@ df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]]=df[["Yearly R
 # Taking **Accepted offer**  column
 
 
-
-
 df["Accepted Offer"].unique()
-
-
-
 
 
 df[["Received Offer","Accepted Offer","Total Deal Amount"]]
@@ -347,13 +269,8 @@ df[["Received Offer","Accepted Offer","Total Deal Amount"]]
 # nan in accepted offers indicates deals were not finalized so we fill nan with 0
 
 
-
-
 df["Accepted Offer"]=df["Accepted Offer"].fillna(0)
 df["Accepted Offer"].isnull().sum()
-
-
-
 
 
 df["Accepted Offer"].dtypes
@@ -362,48 +279,31 @@ df["Accepted Offer"].dtypes
 # #### the dtypes of Accepted Offer column to int as it should be in discrete
 
 
-
-
 df["Accepted Offer"]=df["Accepted Offer"].astype(int)
-
-
-
 
 
 df["Accepted Offer"].dtype   ## verifying the result
 
 
-# ## taking Has patent column
-
-
+### taking Has patent column
 
 
 df["Has Patents"].isnull().sum()
 
 
-# #### In Patent Has column  Nan indicates that brand did not have any patents so we fill nan with 0
-
-
+##### In Patent Has column  Nan indicates that brand did not have any patents so we fill nan with 0
 
 
 df["Has Patents"]=df["Has Patents"].fillna(0)
 
 
-
-
-
 df["Has Patents"].dtypes
-
-
-
 
 
 df["Has Patents"]=df["Has Patents"].astype(int)  ## convert it into int
 
 
-# #### Taking Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation column
-
-
+##### Taking Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation column
 
 
 df[["Original Ask Amount","Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation","Accepted Offer"]]
@@ -412,26 +312,16 @@ df[["Original Ask Amount","Total Deal Amount","Original Offered Equity","Total D
 # here nan indicates deals were not finalized no we fill with 0
 
 
-
-
 df[["Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation"]]=df[["Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation"]].fillna(0)
-
-
-
 
 
 ## verifying the results
 
 
-
-
-
 df[["Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation"]].isnull().sum()
 
 
-# ## Taking sharks
-
-
+### Taking sharks
 
 
 df[["Number of sharks in deal","Ashneer Investment Amount","Namita Investment Amount","Anupam Investment Amount","Vineeta Investment Amount","Aman Investment Amount","Peyush Investment Amount","Ghazal Investment Amount","Amit Investment Amount"]]
@@ -440,26 +330,16 @@ df[["Number of sharks in deal","Ashneer Investment Amount","Namita Investment Am
 # nan in Number of sharks in deal columns indicates deals were not finalized  so we fill with 0
 
 
-
-
 df["Number of sharks in deal"]=df["Number of sharks in deal"].fillna(0)
-
-
-
 
 
 df.columns
 
 
-# ### Taking Ashneer Investment Amount,Namita Investment Amount,Anupam Investment Amount,Vineeta Investment Amount,Aman Investment Amount,Peyush Investment Amount,Ghazal Investment Amount,Amit Investment Amount columns,Guest Investment Amount', 'Guest Investment Equity','Guest Debt Amount
-
-
+#### Taking Ashneer Investment Amount,Namita Investment Amount,Anupam Investment Amount,Vineeta Investment Amount,Aman Investment Amount,Peyush Investment Amount,Ghazal Investment Amount,Amit Investment Amount columns,Guest Investment Amount', 'Guest Investment Equity','Guest Debt Amount
 
 
 df.dtypes
-
-
-
 
 
 df.columns[35:-1]
@@ -468,111 +348,66 @@ df.columns[35:-1]
 # nan in above columns indicates some deals werenot accpeted by corresponding sharks
 
 
-
-
 df[df.columns[35:-1]]=df[df.columns[35:-1]].fillna(0)
-
-
-
 
 
 df[df.columns[35:-1]].isnull().sum().sum()  ## verifying the result
 
 
-# ### verifying whether the  missing values have been filled or not
-
-
+#### verifying whether the  missing values have been filled or not
 
 
 df.isnull().sum().sum()
 
 
-# ## the data is now free from missing values
+### the data is now free from missing values
 
-# ## checking duplicacy in the data
-
-
+### checking duplicacy in the data
 
 
 df.duplicated().sum()
 
 
-# <div style="border-radius:10px; border:#CD5C5C solid; padding: 15px; background-color: #FFFAF1; font-size:100%; text-align:left">
-# <div style="color:white;
-#            display:fill;
-#            border-radius:5px;
-#            background-color:pink;
-#            font-size:200%;
-#            font-family:Serif;
-#            letter-spacing:0.5px">
-# 
-# <p style="padding: 10px;
-#           color:black;
-#           font-size:120%;
-#           text-align:center;">
-# Exploratory Data Analysis
-# </div>
-
-# ## Descriptive stats
-
-
+### Descriptive stats
 
 
 df.describe().T
 
 
-
-
-
 df.head(2)
 
 
-# ## How many  seasons of Shark Tank India
-
-
+### How many  seasons of Shark Tank India
 
 
 pd.DataFrame(df["Season Number"].unique(),columns=["seasons"],index=["season1","season2"])
 
 
-# #### Insight : 2 seasons
+##### Insight : 2 seasons
 
-# ## when both the seasons of shark  Tank India aired
-
-
+### when both the seasons of shark  Tank India aired
 
 
 season1=df["Season Start"].unique()
 season1
 
 
-
-
-
 season2=df["Season End"].unique()
 season2
-
-
-
 
 
 x=pd.DataFrame([[season1[0],season2[0]],[season1[1],season2[1]]],index=["season1","season2"],columns=["start_aired_date","end_aired_date"])
 x
 
 
-# ### Insight:
+#### Insight:
 # - season 1: 20 -Dec-2021   to 04-feb-2022
 # - season 2 : 2-jan-2023  to 10-march-2023
 
-# ## Total number of episodes telecasted till now
-
-
+### Total number of episodes telecasted till now
 
 
 df[["Season Number","Episode Number","Pitch Number"]]
-
-
-
 
 
 df["Episode Number"].unique()
@@ -581,27 +416,16 @@ df["Episode Number"].unique()
 # there is episode number is 0 means unseen pitch so we exclude unseen pitches in order to find out the total number of episodes
 
 
-
-
 df[df["Episode Number"]==0].head()
-
-
-
 
 
 episodes=df[df["Episode Number"]!=0]  ## fetching telecasted episodes
 episodes
 
-
-
-
-
 #episodes["Episode Number"].unique()
 
 
-# ## Total number of episodes in each season
-
-
+### Total number of episodes in each season
 
 
 df[["Season Number","Episode Number","Pitch Number"]]
@@ -610,12 +434,7 @@ df[["Season Number","Episode Number","Pitch Number"]]
 # there is episode number is 0 means unseen pitch so we exclude unseen pitches in order to find out the total number of episodes of each season :
 
 
-
-
 episodes.groupby(["Season Number"])["Episode Number"].nunique()
-
-
-
 
 
 import numpy as np
