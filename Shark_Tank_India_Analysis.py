@@ -1,10 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# 
-# Shark Tank India is an Indian Hindi-language business reality television series that airs on Sony Entertainment Television. The show is the Indian franchise of the American show Shark Tank. It shows entrepreneurs making business presentations to a panel of investors or sharks, who decide whether to invest in their company.
-
-# In[ ]:
+ # Shark Tank India is an Indian Hindi-language business reality television series that airs on Sony Entertainment Television. The show is the Indian franchise of the American show Shark Tank. It shows entrepreneurs making business presentations to a panel of investors or sharks, who decide whether to invest in their company.
 
 
 import pandas as pd
@@ -14,13 +8,13 @@ pd.set_option('display.max_rows',None)
 pd.set_option('display.max_columns',None)
 
 
-# In[ ]:
+
 
 
 df=pd.read_csv("D:\python_datascience\data sets\Shark Tank India.csv")
 
 
-# In[ ]:
+
 
 
 df.shape
@@ -31,7 +25,7 @@ df.shape
 # * There are total **64 Attributes/columns** available in the dataset.
 # * There are total **320 Records/Rows** available in the dataset.
 
-# In[ ]:
+
 
 
 df.sample(2)  ## fetching 5 sample records/rows
@@ -109,13 +103,13 @@ df.sample(2)  ## fetching 5 sample records/rows
 # - Guest Debt Amount - Guest Debt Amount, in lakhs INR
 # - Guest Name - Name of Guest
 
-# In[ ]:
+
 
 
 df1=df.dtypes.to_frame()
 
 
-# In[ ]:
+
 
 
 df1.rename(columns={0:"datatypes"},inplace=True)
@@ -130,7 +124,7 @@ df1.T
 # 
 # 
 
-# In[ ]:
+
 
 
 df.info()
@@ -146,7 +140,7 @@ df.info()
 
 # ## Checking missing values of each columns
 
-# In[ ]:
+
 
 
 df.isnull().sum().to_frame().rename(columns={0:"missing values count"}).T
@@ -154,7 +148,7 @@ df.isnull().sum().to_frame().rename(columns={0:"missing values count"}).T
 
 # ## Checking missing values % of each column
 
-# In[ ]:
+
 
 
 for i in df.columns:
@@ -164,7 +158,7 @@ for i in df.columns:
 
 # ### Checking the missing values of those columns which are of object type
 
-# In[ ]:
+
 
 
 for i in df.columns:
@@ -174,7 +168,7 @@ for i in df.columns:
 
 # ## since company website is not relevant with respect to analysis so we drop it
 
-# In[ ]:
+
 
 
 df.drop(columns=["Company Website"],inplace=True)   ## feature engineering
@@ -182,7 +176,7 @@ df.drop(columns=["Company Website"],inplace=True)   ## feature engineering
 
 # ## Imputing the missing values in Deal has conditions columns
 
-# In[ ]:
+
 
 
 df["Deal has conditions"].unique()
@@ -190,13 +184,13 @@ df["Deal has conditions"].unique()
 
 # here nan indicates no conditions so fill nan in Deal has conditions
 
-# In[ ]:
+
 
 
 df["Deal has conditions"]=df["Deal has conditions"].fillna("no")
 
 
-# In[ ]:
+
 
 
 ## verifying the result
@@ -205,13 +199,13 @@ df["Deal has conditions"].unique()
 
 # ## Imputing the missing values in Guest Name  column
 
-# In[ ]:
+
 
 
 df["Guest Name"]=df["Guest Name"].fillna("not present")
 
 
-# In[ ]:
+
 
 
 df["Guest Name"].isnull().sum()
@@ -219,7 +213,7 @@ df["Guest Name"].isnull().sum()
 
 # ## missing values % of columns which are of numeric type
 
-# In[ ]:
+
 
 
 for i in df.columns:
@@ -231,7 +225,7 @@ for i in df.columns:
 
 # Taking  **male presenters,Female Presenters,Transgender Presenters, Couple Presenters** columns
 
-# In[ ]:
+
 
 
 df[["Number of Presenters","Male Presenters","Female Presenters","Transgender Presenters","Couple Presenters"]]
@@ -239,7 +233,7 @@ df[["Number of Presenters","Male Presenters","Female Presenters","Transgender Pr
 
 # ## from this above output we can see that NaN indicates 0 so we fill NaN with 0 in male presenters ,female  presenters,couple presenters , transgenders
 
-# In[ ]:
+
 
 
 presenters=["Male Presenters","Female Presenters","Couple Presenters","Transgender Presenters"]
@@ -249,13 +243,13 @@ for i in presenters:
 
 # ## verifying the results whether the missing values in above mentioned columns has been filled  or not
 
-# In[ ]:
+
 
 
 df[presenters].isnull().sum().sum()
 
 
-# In[ ]:
+
 
 
 df[presenters].dtypes
@@ -263,13 +257,13 @@ df[presenters].dtypes
 
 # ## since the datatypes of above is float they should be in int as presenters count would be discrete so convert them in int
 
-# In[ ]:
+
 
 
 df[presenters]=df[presenters].astype(int)   ## do necessary column conversion
 
 
-# In[ ]:
+
 
 
 df[presenters].dtypes
@@ -277,13 +271,13 @@ df[presenters].dtypes
 
 # Taking **Started in** column
 
-# In[ ]:
+
 
 
 df["Started in"].unique()
 
 
-# In[ ]:
+
 
 
 df["Started in"].isnull().sum()
@@ -291,20 +285,20 @@ df["Started in"].isnull().sum()
 
 # fill nan in started in columns with 0 as nan indicates brands did nt mention their start up year  or some pitchers were about to start
 
-# In[ ]:
+
 
 
 df["Started in"]=df["Started in"].fillna(0)
 df["Started in"].unique()
 
 
-# In[ ]:
+
 
 
 df["Started in"]=df["Started in"].astype(int)   ## convert started in column in int as years should be discrete type so change it  in int
 
 
-# In[ ]:
+
 
 
 df["Started in"].dtypes
@@ -314,7 +308,7 @@ df["Started in"].dtypes
 
 # ## checking the correlation to see relation between them
 
-# In[ ]:
+
 
 
 df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]].corr()
@@ -322,7 +316,7 @@ df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]].corr()
 
 # from this we can see there a moderate positive correlation between monthly sales and yearly  sales and with rest columns theere is no relation
 
-# In[ ]:
+
 
 
 df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]]
@@ -330,7 +324,7 @@ df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]]
 
 # from this above output nan indicates not available info but these columns are in float so we fill them with 0
 
-# In[ ]:
+
 
 
 df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]]=df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]].fillna(0)
@@ -338,13 +332,13 @@ df[["Yearly Revenue","Monthly Sales","Gross Margin","Net Margin"]]=df[["Yearly R
 
 # Taking **Accepted offer**  column
 
-# In[ ]:
+
 
 
 df["Accepted Offer"].unique()
 
 
-# In[ ]:
+
 
 
 df[["Received Offer","Accepted Offer","Total Deal Amount"]]
@@ -352,14 +346,14 @@ df[["Received Offer","Accepted Offer","Total Deal Amount"]]
 
 # nan in accepted offers indicates deals were not finalized so we fill nan with 0
 
-# In[ ]:
+
 
 
 df["Accepted Offer"]=df["Accepted Offer"].fillna(0)
 df["Accepted Offer"].isnull().sum()
 
 
-# In[ ]:
+
 
 
 df["Accepted Offer"].dtypes
@@ -367,13 +361,13 @@ df["Accepted Offer"].dtypes
 
 # #### the dtypes of Accepted Offer column to int as it should be in discrete
 
-# In[ ]:
+
 
 
 df["Accepted Offer"]=df["Accepted Offer"].astype(int)
 
 
-# In[ ]:
+
 
 
 df["Accepted Offer"].dtype   ## verifying the result
@@ -381,7 +375,7 @@ df["Accepted Offer"].dtype   ## verifying the result
 
 # ## taking Has patent column
 
-# In[ ]:
+
 
 
 df["Has Patents"].isnull().sum()
@@ -389,19 +383,19 @@ df["Has Patents"].isnull().sum()
 
 # #### In Patent Has column  Nan indicates that brand did not have any patents so we fill nan with 0
 
-# In[ ]:
+
 
 
 df["Has Patents"]=df["Has Patents"].fillna(0)
 
 
-# In[ ]:
+
 
 
 df["Has Patents"].dtypes
 
 
-# In[ ]:
+
 
 
 df["Has Patents"]=df["Has Patents"].astype(int)  ## convert it into int
@@ -409,7 +403,7 @@ df["Has Patents"]=df["Has Patents"].astype(int)  ## convert it into int
 
 # #### Taking Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation column
 
-# In[ ]:
+
 
 
 df[["Original Ask Amount","Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation","Accepted Offer"]]
@@ -417,19 +411,19 @@ df[["Original Ask Amount","Total Deal Amount","Original Offered Equity","Total D
 
 # here nan indicates deals were not finalized no we fill with 0
 
-# In[ ]:
+
 
 
 df[["Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation"]]=df[["Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation"]].fillna(0)
 
 
-# In[ ]:
+
 
 
 ## verifying the results
 
 
-# In[ ]:
+
 
 
 df[["Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Deal Debt","Debt Interest","Deal Valuation"]].isnull().sum()
@@ -437,7 +431,7 @@ df[["Total Deal Amount","Original Offered Equity","Total Deal Equity","Total Dea
 
 # ## Taking sharks
 
-# In[ ]:
+
 
 
 df[["Number of sharks in deal","Ashneer Investment Amount","Namita Investment Amount","Anupam Investment Amount","Vineeta Investment Amount","Aman Investment Amount","Peyush Investment Amount","Ghazal Investment Amount","Amit Investment Amount"]]
@@ -445,13 +439,13 @@ df[["Number of sharks in deal","Ashneer Investment Amount","Namita Investment Am
 
 # nan in Number of sharks in deal columns indicates deals were not finalized  so we fill with 0
 
-# In[ ]:
+
 
 
 df["Number of sharks in deal"]=df["Number of sharks in deal"].fillna(0)
 
 
-# In[ ]:
+
 
 
 df.columns
@@ -459,13 +453,13 @@ df.columns
 
 # ### Taking Ashneer Investment Amount,Namita Investment Amount,Anupam Investment Amount,Vineeta Investment Amount,Aman Investment Amount,Peyush Investment Amount,Ghazal Investment Amount,Amit Investment Amount columns,Guest Investment Amount', 'Guest Investment Equity','Guest Debt Amount
 
-# In[ ]:
+
 
 
 df.dtypes
 
 
-# In[ ]:
+
 
 
 df.columns[35:-1]
@@ -473,13 +467,13 @@ df.columns[35:-1]
 
 # nan in above columns indicates some deals werenot accpeted by corresponding sharks
 
-# In[ ]:
+
 
 
 df[df.columns[35:-1]]=df[df.columns[35:-1]].fillna(0)
 
 
-# In[ ]:
+
 
 
 df[df.columns[35:-1]].isnull().sum().sum()  ## verifying the result
@@ -487,7 +481,7 @@ df[df.columns[35:-1]].isnull().sum().sum()  ## verifying the result
 
 # ### verifying whether the  missing values have been filled or not
 
-# In[ ]:
+
 
 
 df.isnull().sum().sum()
@@ -497,7 +491,7 @@ df.isnull().sum().sum()
 
 # ## checking duplicacy in the data
 
-# In[ ]:
+
 
 
 df.duplicated().sum()
@@ -521,13 +515,13 @@ df.duplicated().sum()
 
 # ## Descriptive stats
 
-# In[ ]:
+
 
 
 df.describe().T
 
 
-# In[ ]:
+
 
 
 df.head(2)
@@ -535,7 +529,7 @@ df.head(2)
 
 # ## How many  seasons of Shark Tank India
 
-# In[ ]:
+
 
 
 pd.DataFrame(df["Season Number"].unique(),columns=["seasons"],index=["season1","season2"])
@@ -545,21 +539,21 @@ pd.DataFrame(df["Season Number"].unique(),columns=["seasons"],index=["season1","
 
 # ## when both the seasons of shark  Tank India aired
 
-# In[ ]:
+
 
 
 season1=df["Season Start"].unique()
 season1
 
 
-# In[ ]:
+
 
 
 season2=df["Season End"].unique()
 season2
 
 
-# In[ ]:
+
 
 
 x=pd.DataFrame([[season1[0],season2[0]],[season1[1],season2[1]]],index=["season1","season2"],columns=["start_aired_date","end_aired_date"])
@@ -572,13 +566,13 @@ x
 
 # ## Total number of episodes telecasted till now
 
-# In[ ]:
+
 
 
 df[["Season Number","Episode Number","Pitch Number"]]
 
 
-# In[ ]:
+
 
 
 df["Episode Number"].unique()
@@ -586,20 +580,20 @@ df["Episode Number"].unique()
 
 # there is episode number is 0 means unseen pitch so we exclude unseen pitches in order to find out the total number of episodes
 
-# In[ ]:
+
 
 
 df[df["Episode Number"]==0].head()
 
 
-# In[ ]:
+
 
 
 episodes=df[df["Episode Number"]!=0]  ## fetching telecasted episodes
 episodes
 
 
-# In[ ]:
+
 
 
 #episodes["Episode Number"].unique()
@@ -607,7 +601,7 @@ episodes
 
 # ## Total number of episodes in each season
 
-# In[ ]:
+
 
 
 df[["Season Number","Episode Number","Pitch Number"]]
@@ -615,13 +609,13 @@ df[["Season Number","Episode Number","Pitch Number"]]
 
 # there is episode number is 0 means unseen pitch so we exclude unseen pitches in order to find out the total number of episodes of each season :
 
-# In[ ]:
+
 
 
 episodes.groupby(["Season Number"])["Episode Number"].nunique()
 
 
-# In[ ]:
+
 
 
 import numpy as np
@@ -631,13 +625,13 @@ np.sum(episodes.groupby(["Season Number"])["Episode Number"].nunique().values)
 # #### Insights:
 # ## Total number of episodes :87
 
-# In[ ]:
+
 
 
 x["no_of_episodes"]=episodes.groupby(["Season Number"])["Episode Number"].nunique().values
 
 
-# In[ ]:
+
 
 
 x
@@ -649,13 +643,13 @@ x
 
 # ## find the total number of enterprenuers who presented their ideas in Shark tank India
 
-# In[ ]:
+
 
 
 df.iloc[:,0:8]
 
 
-# In[ ]:
+
 
 
 df["Pitch Number"].nunique()
@@ -666,13 +660,13 @@ df["Pitch Number"].nunique()
 
 # ## Out of 320, How many enterprenuers participated in each seasons?
 
-# In[ ]:
+
 
 
 df.groupby(["Season Number"])["Pitch Number"].count()
 
 
-# In[ ]:
+
 
 
 plt.pie(df.groupby(["Season Number"])["Pitch Number"].count().values,labels=df.groupby(["Season Number"])["Pitch Number"].count().index,autopct="%.2f%%",colors=sns.color_palette("muted"));
@@ -688,13 +682,13 @@ plt.pie(df.groupby(["Season Number"])["Pitch Number"].count().values,labels=df.g
 # or
 # ## How many's brands participated in each season excluding non telecasted pitch
 
-# In[ ]:
+
 
 
 episodes.groupby(["Season Number"])["Pitch Number"].count()
 
 
-# In[ ]:
+
 
 
 plt.pie(episodes.groupby(["Season Number"])["Pitch Number"].count().values,labels=episodes.groupby(["Season Number"])["Pitch Number"].count().index,autopct="%.2f%%",colors=sns.color_palette("muted"))
@@ -703,13 +697,13 @@ p=plt.gcf()
 p.gca().add_artist(circle)
 
 
-# In[ ]:
+
 
 
 df.head(2)
 
 
-# In[ ]:
+
 
 
 df[["Season Number","Episode Number","Pitch Number"]]
@@ -717,7 +711,7 @@ df[["Season Number","Episode Number","Pitch Number"]]
 
 # ## How many brands participated in each epsiode of each season
 
-# In[ ]:
+
 
 
 df.groupby(["Season Number","Episode Number"])["Pitch Number"].agg(["count"]).sort_values(by="count",ascending=False)
@@ -729,19 +723,19 @@ df.groupby(["Season Number","Episode Number"])["Pitch Number"].agg(["count"]).so
 
 # ## Industry
 
-# In[ ]:
+
 
 
 df.head(2)
 
 
-# In[ ]:
+
 
 
 df["Industry"].unique()
 
 
-# In[ ]:
+
 
 
 df[["Season Number","Industry"]]
@@ -749,7 +743,7 @@ df[["Season Number","Industry"]]
 
 # ## of which sector/Industry brands participated
 
-# In[ ]:
+
 
 
 sns.countplot(x="Industry",data=df,palette="muted")
@@ -761,7 +755,7 @@ plt.xticks(rotation=90);
 
 # ## Of which sector brands participated with respect to each season
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(10,9))
@@ -772,7 +766,7 @@ plt.xticks(rotation=90);
 # ## Insight:
 # Entrpreneurs from food sector in both the season participated most
 
-# In[ ]:
+
 
 
 df.head(2)
@@ -781,7 +775,7 @@ df.head(2)
 # ## Which  team  size particapted most
 # 
 
-# In[ ]:
+
 
 
 sns.countplot(df["Number of Presenters"],palette="muted");
@@ -790,7 +784,7 @@ sns.countplot(df["Number of Presenters"],palette="muted");
 # #### Insight:
 # Team size of 2 participated most
 
-# In[ ]:
+
 
 
 df[((df["Number of Presenters"]==6) | (df["Number of Presenters"]==5))]
@@ -798,7 +792,7 @@ df[((df["Number of Presenters"]==6) | (df["Number of Presenters"]==5))]
 
 # ## Team participation size in each seasons
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(10,4))
@@ -808,7 +802,7 @@ sns.countplot(x="Season Number",palette="pastel",hue="Number of Presenters",data
 
 # Team of 2 participated most in both season and only one team with 5 or 6 members  participated in season 2 and season 1 respectively.
 
-# In[ ]:
+
 
 
 df.head(2)
@@ -816,25 +810,25 @@ df.head(2)
 
 # ## How many % were couples ?
 
-# In[ ]:
+
 
 
 df["Couple Presenters"].unique()
 
 
-# In[ ]:
+
 
 
 df["Couple Presenters"].value_counts()
 
 
-# In[ ]:
+
 
 
 plt.pie(df["Couple Presenters"].value_counts().values,labels=df["Couple Presenters"].unique(),autopct="%.2f%%",colors=sns.color_palette("muted"));
 
 
-# In[ ]:
+
 
 
 df.groupby(["Season Number"])["Couple Presenters"].value_counts()
@@ -842,13 +836,13 @@ df.groupby(["Season Number"])["Couple Presenters"].value_counts()
 
 # ## who participated most  male,female,transgender
 
-# In[ ]:
+
 
 
 df.head(2)
 
 
-# In[ ]:
+
 
 
 l=["Male Presenters","Female Presenters","Transgender Presenters"]
@@ -858,7 +852,7 @@ for i in l:
 l1
 
 
-# In[ ]:
+
 
 
 plt.pie(l1,labels=l,autopct="%.2f%%",colors=sns.color_palette("muted"),explode=[0,0,2]);
@@ -867,13 +861,13 @@ plt.pie(l1,labels=l,autopct="%.2f%%",colors=sns.color_palette("muted"),explode=[
 # #### Insight:
 # male entrepreneurs participated most
 
-# In[ ]:
+
 
 
 df["Transgender Presenters"].unique()
 
 
-# In[ ]:
+
 
 
 df[df["Transgender Presenters"]==1]
@@ -881,7 +875,7 @@ df[df["Transgender Presenters"]==1]
 
 # ## Of which age entreprenurs participated  most and least
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(15,4))
@@ -897,13 +891,13 @@ plt.title("pitcher's age distribution");
 # - 72% of pitchers were of  middle age participated
 # - mostly middle age participated most
 
-# In[ ]:
+
 
 
 df.head(2)
 
 
-# In[ ]:
+
 
 
 df["Pitchers City"].nunique()
@@ -911,19 +905,19 @@ df["Pitchers City"].nunique()
 
 # ## of which states  Pitchers participated most and least
 
-# In[ ]:
+
 
 
 df["Pitchers State"].unique()
 
 
-# In[ ]:
+
 
 
 df["Pitchers State"].nunique()
 
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(16,4))
@@ -931,13 +925,13 @@ sns.countplot(x="Pitchers State",data=df)
 plt.xticks(rotation=90);
 
 
-# In[ ]:
+
 
 
 df["Pitchers State"]
 
 
-# In[ ]:
+
 
 
 states=df["Pitchers State"].values
@@ -945,19 +939,19 @@ state = ' '.join(states)
 state
 
 
-# In[ ]:
+
 
 
 #pip install wordcloud
 
 
-# In[ ]:
+
 
 
 from wordcloud import WordCloud
 
 
-# In[ ]:
+
 
 
 wordcloud = WordCloud(width=800, height=800, background_color='black').generate(state)
@@ -971,7 +965,7 @@ plt.show()
 
 # ## or
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(7,5))
@@ -982,7 +976,7 @@ plt.xticks(rotation=90);
 # #### Insight:
 # from Mahrashtra entrepreneurs partcipated most
 
-# In[ ]:
+
 
 
 df["Pitchers State"].value_counts()
@@ -990,7 +984,7 @@ df["Pitchers State"].value_counts()
 
 # ## to see the distribution of each in %  use pie chart
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(15,15))
@@ -999,7 +993,7 @@ plt.pie(x=df["Pitchers State"].value_counts().values,labels=df["Pitchers State"]
 
 # ## because of too many categories as states so pie chart becomes messy so we do the feature engineering in such way that number of categories is reduced
 
-# In[ ]:
+
 
 
 df["Pitchers State"].unique()
@@ -1007,14 +1001,14 @@ df["Pitchers State"].unique()
 
 # from above output we can see in some team each entreprenurs came from different state like in Karnataka,West Bengal so wo are making these states as hybrid state as follows
 
-# In[ ]:
+
 
 
 df1=df.copy()
 df1
 
 
-# In[ ]:
+
 
 
 index=0
@@ -1026,13 +1020,13 @@ for i in df1["Pitchers State"]:
     index=index+1
 
 
-# In[ ]:
+
 
 
 df1["Pitchers State"].unique()
 
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(15,15))
@@ -1043,13 +1037,13 @@ plt.pie(x=df1["Pitchers State"].value_counts().values,labels=df1["Pitchers State
 
 # ### make  new  others categories/state  for  those state whose corresponding  count less than 5
 
-# In[ ]:
+
 
 
 df1["Pitchers State"].value_counts()
 
 
-# In[ ]:
+
 
 
 l=["Madhya Pradesh","Bihar","Jammu & Kashmir","Goa","Kerala","Uttarakhand","Himachal Pradesh","Jharkhand","Chhattisgarh","Arunachal Pradesh"]
@@ -1060,19 +1054,19 @@ for i in df1["Pitchers State"]:
     index=index+1
 
 
-# In[ ]:
+
 
 
 df1["Pitchers State"].nunique()
 
 
-# In[ ]:
+
 
 
 df1["Pitchers State"].value_counts()
 
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(10,8))
@@ -1081,13 +1075,13 @@ plt.pie(x=df1["Pitchers State"].value_counts().values,labels=df1["Pitchers State
 
 # ## Top 5 participating states
 
-# In[ ]:
+
 
 
 df1["Pitchers State"].value_counts().head(5)
 
 
-# In[ ]:
+
 
 
 plt.bar(df1["Pitchers State"].value_counts().head(5).index,df1["Pitchers State"].value_counts().head(5).values,color="yellow",edgecolor="red")
@@ -1104,19 +1098,19 @@ plt.tight_layout()
 
 # ## most and least active participating city with respect to above states
 
-# In[ ]:
+
 
 
 x=df1[((df1["Pitchers State"]=="Maharashtra")|(df["Pitchers State"]=="Delhi")|(df["Pitchers State"]=="Karnataka")|(df["Pitchers State"]=="Gujarat")|(df["Pitchers State"]=="others"))]
 
 
-# In[ ]:
+
 
 
 x
 
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(14,9))
@@ -1127,13 +1121,13 @@ plt.xticks(rotation=90);
 # ##  Feature engineering:
 # - adding  zones  column by doing feature extraction from pitcher state
 
-# In[ ]:
+
 
 
 df["Pitchers State"].unique()
 
 
-# In[ ]:
+
 
 
 north=["Delhi","Punjab","Delhi,Punjab","Haryana","Jammu & Kashmir","Uttar Pradesh","Uttarakhand","Himachal Pradesh","Uttarakhand,Uttar Pradesh"]
@@ -1145,7 +1139,7 @@ hybrid=["Karnataka,West Bengal","Delhi,Maharashtra","Haryana,Madhya Pradesh","Te
 
 
 
-# In[ ]:
+
 
 
 index=0
@@ -1168,13 +1162,13 @@ for i in df["Pitchers State"]:
     index=index+1
 
 
-# In[ ]:
+
 
 
 df.head(2)
 
 
-# In[ ]:
+
 
 
 df[["Pitchers State","zones"]]
@@ -1182,13 +1176,13 @@ df[["Pitchers State","zones"]]
 
 # ## Most and Least Actively participating zone
 
-# In[ ]:
+
 
 
 df["zones"].value_counts()
 
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(8,5))
@@ -1202,7 +1196,7 @@ p.gca().add_artist(circle);
 # - actively participating zone is west
 # - least participating is central zone
 
-# In[ ]:
+
 
 
 df.head(2)
@@ -1210,7 +1204,7 @@ df.head(2)
 
 #  ## How many enterprenurs patent their ideas
 
-# In[ ]:
+
 
 
 df["Has Patents"].value_counts()
@@ -1218,7 +1212,7 @@ df["Has Patents"].value_counts()
 
 # ## only 7 entreprenurs has patents . Who were they ?
 
-# In[ ]:
+
 
 
 df[df["Has Patents"]==1].iloc[:,[6,7,8,16,17]]
@@ -1226,20 +1220,20 @@ df[df["Has Patents"]==1].iloc[:,[6,7,8,16,17]]
 
 # ## Which was the oldest and latest startup participated in shark tank
 
-# In[ ]:
+
 
 
 df["Started in"].min()
 
 
-# In[ ]:
+
 
 
 year=df[df["Started in"]!=0]  ## 0 means no information or about to start
 year
 
 
-# In[ ]:
+
 
 
 year[year["Started in"]==year["Started in"].min()]
@@ -1248,7 +1242,7 @@ year[year["Started in"]==year["Started in"].min()]
 # startname : Agritourism
 # startup year: 2005
 
-# In[ ]:
+
 
 
 year[year["Started in"]==year["Started in"].max()]
@@ -1260,7 +1254,7 @@ year[year["Started in"]==year["Started in"].max()]
 
 # ## How many deals were finalized
 
-# In[ ]:
+
 
 
 df["Accepted Offer"].value_counts()
@@ -1271,7 +1265,7 @@ df["Accepted Offer"].value_counts()
 # 
 # mostly deals were finalized
 
-# In[ ]:
+
 
 
 sns.countplot(x="Accepted Offer",data=df,palette="muted")
@@ -1279,7 +1273,7 @@ sns.countplot(x="Accepted Offer",data=df,palette="muted")
 
 # ###  The ideas and details of brands whose deals were accpted.
 
-# In[ ]:
+
 
 
 df_ac=df[df["Accepted Offer"]==1]
@@ -1288,13 +1282,13 @@ df_ac[["Startup Name","Industry","Business Description"]]
 
 # ## How many deals were finalized in both season
 
-# In[ ]:
+
 
 
 df.groupby(["Season Number"])["Accepted Offer"].value_counts()
 
 
-# In[ ]:
+
 
 
 sns.countplot(x="Season Number",data=df,palette="muted",hue="Accepted Offer");
@@ -1306,13 +1300,13 @@ sns.countplot(x="Season Number",data=df,palette="muted",hue="Accepted Offer");
 
 # ## How many deals were finalized in both season in seen piches
 
-# In[ ]:
+
 
 
 #episodes_ac=episodes[episodes["Accepted Offer"]==1]
 
 
-# In[ ]:
+
 
 
 sns.countplot(x="Season Number",data=episodes,palette="muted",hue="Accepted Offer");
@@ -1324,7 +1318,7 @@ sns.countplot(x="Season Number",data=episodes,palette="muted",hue="Accepted Offe
 
 # ### How many offers were rejected
 
-# In[ ]:
+
 
 
 len(df[df["Received Offer"]!=df["Accepted Offer"]])
@@ -1332,13 +1326,13 @@ len(df[df["Received Offer"]!=df["Accepted Offer"]])
 
 # ## Details of thoses whose offers have been rejected
 
-# In[ ]:
+
 
 
 df[df["Received Offer"]!=df["Accepted Offer"]]
 
 
-# In[ ]:
+
 
 
 df_ac  ## data where their offers were   accepted
@@ -1346,13 +1340,13 @@ df_ac  ## data where their offers were   accepted
 
 # ## Find the highest deal amount that were accepted
 
-# In[ ]:
+
 
 
 #df[["Original Ask Amount","Accepted Offer","Total Deal Amount"]]
 
 
-# In[ ]:
+
 
 
 df_ac["Total Deal Amount"].max()
@@ -1360,7 +1354,7 @@ df_ac["Total Deal Amount"].max()
 
 # ## Details of highest deal amount
 
-# In[ ]:
+
 
 
 df_ac[df_ac["Total Deal Amount"]==df["Total Deal Amount"].max()]
@@ -1386,13 +1380,13 @@ df_ac[df_ac["Total Deal Amount"]==df["Total Deal Amount"].max()]
 
 # ###  Find the lowest deal amount that were accepted
 
-# In[ ]:
+
 
 
 df_ac["Total Deal Amount"].min()
 
 
-# In[ ]:
+
 
 
 df_ac[df_ac["Total Deal Amount"]==df_ac["Total Deal Amount"].min()]
@@ -1400,14 +1394,14 @@ df_ac[df_ac["Total Deal Amount"]==df_ac["Total Deal Amount"].min()]
 
 # since 0 rs in deal amont shows not an invalid entry this was case for the pitchers who demanded 100 hours from sharks for 0.5% equity.
 
-# In[ ]:
+
 
 
 x=df_ac[df_ac["Total Deal Amount"]!=0]
 x
 
 
-# In[ ]:
+
 
 
 x[x["Total Deal Amount"]==x["Total Deal Amount"].min()]
@@ -1415,7 +1409,7 @@ x[x["Total Deal Amount"]==x["Total Deal Amount"].min()]
 
 # ### now find the min deal amount that had been accepted
 
-# In[ ]:
+
 
 
 x["Total Deal Amount"].min()
@@ -1437,13 +1431,13 @@ x["Total Deal Amount"].min()
 
 # ## min and max deal amount accpted by sharks of both season
 
-# In[ ]:
+
 
 
 x.groupby(["Season Number"])["Total Deal Amount"].agg(["max","min"])
 
 
-# In[ ]:
+
 
 
 sns.heatmap(x.groupby(["Season Number"])["Total Deal Amount"].agg(["max","min"]),annot=True)
@@ -1451,7 +1445,7 @@ sns.heatmap(x.groupby(["Season Number"])["Total Deal Amount"].agg(["max","min"])
 
 # ## Find most dealing episodes of both the season
 
-# In[ ]:
+
 
 
 best_episodes=df_ac.groupby(["Season Number",'Episode Number'])['Accepted Offer'].sum()
@@ -1460,7 +1454,7 @@ best_episodes.to_frame().sort_values(by=["Season Number","Accepted Offer"],ascen
 
 # ### Find the most liking episodes
 
-# In[ ]:
+
 
 
 df_ac.groupby(["Season Number","Episode Number"])["Number of sharks in deal"].max().to_frame().sort_values(by=["Season Number","Number of sharks in deal"],ascending=False)
@@ -1468,13 +1462,13 @@ df_ac.groupby(["Season Number","Episode Number"])["Number of sharks in deal"].ma
 
 # ## Find Most Expensive dealing Episodes
 
-# In[ ]:
+
 
 
 df_ac[["Season Number",'Episode Number',"Total Deal Amount"]]
 
 
-# In[ ]:
+
 
 
 expensive_episodes=df_ac.groupby(["Season Number",'Episode Number'])["Total Deal Amount"].sum().reset_index().sort_values(by=["Season Number","Total Deal Amount"],ascending=False)
@@ -1495,13 +1489,13 @@ expensive_episodes
 # 
 # 
 
-# In[ ]:
+
 
 
 df.head(2)
 
 
-# In[ ]:
+
 
 
 df.columns
@@ -1510,7 +1504,7 @@ df.columns
 # ### How many sharks participated in this show and What were their names ?¶
 # 
 
-# In[ ]:
+
 
 
 sharks_names=[]
@@ -1529,7 +1523,7 @@ print("following are the names \n\n",sharks_names)
 # 
 # 
 
-# In[ ]:
+
 
 
 df_1=df[df["Season Number"]==1]  ## df_1 for season 1
@@ -1541,7 +1535,7 @@ for i in df.columns[35:-5:3]:
 
 
 
-# In[ ]:
+
 
 
 df_2=df[df["Season Number"]==2]  ## df_2 for season 2
@@ -1559,19 +1553,19 @@ for i in df.columns[35:-4:3]:
 
 # ## How much total amount each investers/sharks invested in the the deals?
 
-# In[ ]:
+
 
 
 #df.columns[35:-4:3]
 
 
-# In[ ]:
+
 
 
 #df[df.columns[35:-4:3]]
 
 
-# In[ ]:
+
 
 
 l=[]
@@ -1582,7 +1576,7 @@ for i in df.columns[35:-5:3]:
 l
 
 
-# In[ ]:
+
 
 
 plt.bar(sharks_names,l,color="yellow",edgecolor="red")
@@ -1594,7 +1588,7 @@ plt.tight_layout()
 
 # ## How much total amount each investers/sharks invested in the the deals in each season?
 
-# In[ ]:
+
 
 
 l_1=[]
@@ -1605,7 +1599,7 @@ for i in df_1.columns[35:-5:3]:  ## df_1 for season 1
 l_1
 
 
-# In[ ]:
+
 
 
 l_2=[]
@@ -1616,7 +1610,7 @@ for i in df_2.columns[35:-5:3]:
 l_2
 
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(15,5))
@@ -1639,13 +1633,13 @@ plt.show()
 
 # ## How much total equity each investers/sharks gets in the show?
 
-# In[ ]:
+
 
 
 df.columns[36:-4:3]
 
 
-# In[ ]:
+
 
 
 l=[]
@@ -1656,7 +1650,7 @@ for i in df.columns[36:-4:3]:
 l
 
 
-# In[ ]:
+
 
 
 plt.bar(sharks_names,l,color="yellow",edgecolor="red")
@@ -1665,7 +1659,7 @@ plt.tight_layout()
 
 # ## How much total equity each shark gets in each season
 
-# In[ ]:
+
 
 
 l_1=[]
@@ -1676,7 +1670,7 @@ for i in df_1.columns[36:-4:3]:
 l_1
 
 
-# In[ ]:
+
 
 
 l_2=[]
@@ -1687,7 +1681,7 @@ for i in df_2.columns[36:-4:3]:
 l_2
 
 
-# In[ ]:
+
 
 
 plt.figure(figsize=(15,5))
@@ -1705,13 +1699,13 @@ plt.show()
 
 # ## Find the most attracted ideas accepted by sharks
 
-# In[ ]:
+
 
 
 df["Number of sharks in deal"].unique()
 
 
-# In[ ]:
+
 
 
 df[df["Number of sharks in deal"]==5][["Startup Name","Business Description"]]
@@ -1719,7 +1713,7 @@ df[df["Number of sharks in deal"]==5][["Startup Name","Business Description"]]
 
 # ### Find how many % entrepreneurs got more,less and same amount in successful deals
 
-# In[ ]:
+
 
 
 print(len(df_ac[df_ac["Total Deal Amount"]>df_ac["Original Ask Amount"]])/len(df_ac)*100," %entrepreneurs got more amount than they asked\n")
@@ -1733,13 +1727,13 @@ print(len(df_ac[df_ac["Total Deal Amount"]==df_ac["Original Ask Amount"]])/len(d
 
 # ## Find how many % entrepreneurs got more,less and same amount in successful deals in season 1
 
-# In[ ]:
+
 
 
 df_ac_1=df_1[df_1["Accepted Offer"]==1]  ## for season1
 
 
-# In[ ]:
+
 
 
 print(len(df_ac_1[df_ac_1["Total Deal Amount"]>df_ac_1["Original Ask Amount"]])/len(df_ac_1)*100," %entrepreneurs got more amount than they asked\n")
@@ -1749,13 +1743,13 @@ print(len(df_ac_1[df_ac_1["Total Deal Amount"]==df_ac_1["Original Ask Amount"]])
 
 # ## Find how many % entrepreneurs got more,less and same amount in successful deals in season 2
 
-# In[ ]:
+
 
 
 df_ac_2=df_2[df_2["Accepted Offer"]==1]
 
 
-# In[ ]:
+
 
 
 print(len(df_ac_2[df_ac_2["Total Deal Amount"]>df_ac_2["Original Ask Amount"]])/len(df_ac_2)*100," %entrepreneurs got more amount than they asked\n")
